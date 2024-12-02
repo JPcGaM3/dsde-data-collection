@@ -1,5 +1,9 @@
 /data
 
+.DS_Store
+
 .*.json
 .*.py
 .*.ipynb
+.*.git
+.*
