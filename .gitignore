@@ -1,9 +1,10 @@
+# Data from teacher
 /data
 
+# Cache from macos
 .DS_Store
+*._*.*
+*._*
 
-.*.json
-.*.py
-.*.ipynb
-.*.git
-._*
+# Python caches
+*__pycache__
