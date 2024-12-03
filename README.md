@@ -1,3 +1,9 @@
 # dsde-project
-in line 32 and 42
-please enter your own email and password for entering scopus website
+
+## --- Instruction ---
+
+Create a file named `data.py` with the following content:
+
+```python
+_id = "your email"
+_pass = "your pass"
