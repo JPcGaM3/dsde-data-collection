@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
 import time
@@ -28,8 +29,6 @@ def scopus_search_and_navigate():
         email_input = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, "bdd-email"))
         )
-        #enter your email
-        #eg. email_input.send_keys("user@gmail.com")
         email_input.send_keys(_id)
         
         continue_button = driver.find_element(By.ID, "bdd-elsPrimaryBtn")
@@ -38,20 +37,18 @@ def scopus_search_and_navigate():
         password_input = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, "bdd-password"))
         )
-        #enter your password
-        #eg. password_input.send_keys("123456")
         password_input.send_keys(_pass)
         
         login_button = driver.find_element(By.ID, "bdd-elsPrimaryBtn")
         login_button.click()
         
         time.sleep(5)
-        
+
+
         search_box = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CLASS_NAME, "styleguide-input-module___SqPU"))
         )
-
-        search_box.send_keys("Ai")
+        search_box.send_keys('a')
 
         search_button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, "//button[@type='submit']"))
@@ -61,9 +58,39 @@ def scopus_search_and_navigate():
         time.sleep(5)
         
 
-        WebDriverWait(driver, 10).until(
+        WebDriverWait(driver, 50).until(
         EC.presence_of_element_located((By.TAG_NAME, "body"))
         )
+
+        sort_by = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//*[@id='container']/micro-ui/document-search-results-page/div[1]/section[2]/div/div[2]/div/div[2]/div/div[1]/table/tbody/tr/td[3]/div/div/div[1]/label/select"))
+        )
+
+        select = Select(sort_by)
+
+        select.select_by_visible_text("Relevance")
+
+        start_year = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//*[@id='year-section']/div/div/div/div[2]/div/div[2]/div/div/div/div/div[1]/div/label/input"))
+        )
+        start_year.send_keys("2018")
+        start_year.send_keys(Keys.TAB)
+        end_year = driver.switch_to.active_element
+        end_year.send_keys(Keys.BACKSPACE)
+        end_year.send_keys(Keys.BACKSPACE)
+        end_year.send_keys(Keys.BACKSPACE)
+        end_year.send_keys(Keys.BACKSPACE)
+        end_year.send_keys(Keys.BACKSPACE)
+        end_year.send_keys(Keys.BACKSPACE)
+
+        end_year.send_keys("2023")
+
+        time.sleep(2)
+
+        WebDriverWait(driver, 50).until(
+        EC.presence_of_element_located((By.TAG_NAME, "body"))
+        )
+
         export_button = WebDriverWait(driver,10).until(
             EC.presence_of_element_located((By.XPATH, "//button[.//span[text()='Export']]"))
         )
@@ -87,7 +114,8 @@ def scopus_search_and_navigate():
             EC.presence_of_element_located((By.XPATH, "//button[.//span[.//div[text()='Export']]]"))
         )
         export_button2.click()
-        time.sleep(5) 
+
+        time.sleep(2) 
 
         WebDriverWait(driver, 5000).until(
             EC.presence_of_element_located((By.XPATH, "//span[.//div[.//div[text()='Your CSV file was successfully exported.']]]"))
@@ -101,6 +129,3 @@ def scopus_search_and_navigate():
         driver.quit()
 
 scopus_search_and_navigate()
-
-#! update now!
-# Go inside for each research page
