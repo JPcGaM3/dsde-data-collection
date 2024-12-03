@@ -2,7 +2,7 @@
 /data
 
 # Cache from macos
-.DS_Store
+*.DS_Store
 *._*.*
 *._*
 
