@@ -8,3 +8,6 @@
 
 # Python caches
 *__pycache__
+
+# ID,PASS
+*data.py
