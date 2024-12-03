@@ -29,7 +29,7 @@ def scopus_search_and_navigate():
         )
         #enter your email
         #eg. email_input.send_keys("user@gmail.com")
-        email_input.send_keys("your email for scopus")
+        email_input.send_keys("your email")
         
         continue_button = driver.find_element(By.ID, "bdd-elsPrimaryBtn")
         continue_button.click()
@@ -63,26 +63,30 @@ def scopus_search_and_navigate():
         WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.TAG_NAME, "body"))
         )
-        
-        # Correct all research on that page
-        links_list = []
-        link_elements = driver.find_elements(
-            By.CLASS_NAME, 
-            "Button-module__f8gtt.Button-module__rphhF.Button-module__VBKvn.Button-module__ZS4lL.Button-module__hK_LA.Button-module__qDdAl.Button-module__rTQlw"
+        export_button = WebDriverWait(driver,10).until(
+            EC.presence_of_element_located((By.XPATH, "//button[.//span[text()='Export']]"))
         )
-        
-        for link_element in link_elements:
-            link = link_element.get_attribute("href")
-            if link:  
-               links_list.append(link)
-
-        for link in links_list :
-            driver.get(link)
-            time.sleep(5)
-            driver.back()
-            time.sleep(5)
-
-        time.sleep(10)
+        driver.execute_script("arguments[0].scrollIntoView(true);", export_button)
+        driver.execute_script("arguments[0].click();", export_button)
+        csv_button = WebDriverWait(driver,10).until(
+            EC.presence_of_element_located((By.XPATH, "//button[.//span[text()='CSV']]"))
+        )
+        csv_button.click()
+        select_all_button = WebDriverWait(driver,10).until(
+            EC.presence_of_element_located((By.XPATH, "//button[.//span[text()='Select all information']]"))
+        )
+        select_all_button.click()
+        radio_label = driver.find_element(By.XPATH, "//label[.//span[text()='Documents']]")
+        radio_label.click()
+        input_from = driver.find_element(By.XPATH, "//input[@placeholder = 'From']")
+        input_from.send_keys(1)
+        input_to = driver.find_element(By.XPATH, "//input[@placeholder = 'To']")
+        input_to.send_keys(2000)
+        export_button2 = WebDriverWait(driver,10).until(
+            EC.presence_of_element_located((By.XPATH, "//button[.//span[.//div[text()='Export']]]"))
+        )
+        export_button2.click()
+        time.sleep(5000) #adjust this for your own sake
     
     except Exception as e:
         print(f"An error occurred: {e}")
