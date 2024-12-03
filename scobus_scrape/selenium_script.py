@@ -27,7 +27,9 @@ def scopus_search_and_navigate():
         email_input = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, "bdd-email"))
         )
-        email_input.send_keys("6633038121@student.chula.ac.th")
+        #enter your email
+        #eg. email_input.send_keys("user@gmail.com")
+        email_input.send_keys("your email for scopus")
         
         continue_button = driver.find_element(By.ID, "bdd-elsPrimaryBtn")
         continue_button.click()
@@ -35,7 +37,9 @@ def scopus_search_and_navigate():
         password_input = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, "bdd-password"))
         )
-        password_input.send_keys("kenpav-babwE3-nosrys")
+        #enter your password
+        #eg. password_input.send_keys("123456")
+        password_input.send_keys("your password")
         
         login_button = driver.find_element(By.ID, "bdd-elsPrimaryBtn")
         login_button.click()
