@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
 import time
 import os
+from data import _id, _pass
 
 def scopus_search_and_navigate():
 
@@ -29,7 +30,7 @@ def scopus_search_and_navigate():
         )
         #enter your email
         #eg. email_input.send_keys("user@gmail.com")
-        email_input.send_keys("your email")
+        email_input.send_keys(_id)
         
         continue_button = driver.find_element(By.ID, "bdd-elsPrimaryBtn")
         continue_button.click()
@@ -39,7 +40,7 @@ def scopus_search_and_navigate():
         )
         #enter your password
         #eg. password_input.send_keys("123456")
-        password_input.send_keys("your password")
+        password_input.send_keys(_pass)
         
         login_button = driver.find_element(By.ID, "bdd-elsPrimaryBtn")
         login_button.click()
@@ -86,7 +87,12 @@ def scopus_search_and_navigate():
             EC.presence_of_element_located((By.XPATH, "//button[.//span[.//div[text()='Export']]]"))
         )
         export_button2.click()
-        time.sleep(5000) #adjust this for your own sake
+        time.sleep(5) 
+
+        WebDriverWait(driver, 5000).until(
+            EC.presence_of_element_located((By.XPATH, "//span[.//div[.//div[text()='Your CSV file was successfully exported.']]]"))
+        )
+        time.sleep(2)
     
     except Exception as e:
         print(f"An error occurred: {e}")
