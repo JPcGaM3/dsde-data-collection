@@ -8,8 +8,12 @@
 
 # Python caches
 *__pycache__
+*.pytest_cache
 
 /scobus_scrape/test.py
 
 # ID, PASS
 *data.py
+
+# Raw data
+*raw_*.*
