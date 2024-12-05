@@ -48,7 +48,7 @@ def scopus_search_and_navigate():
         search_box = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CLASS_NAME, "styleguide-input-module___SqPU"))
         )
-        search_box.send_keys('a')
+        search_box.send_keys('o')
 
         search_button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, "//button[@type='submit']"))
@@ -109,7 +109,7 @@ def scopus_search_and_navigate():
         input_from = driver.find_element(By.XPATH, "//input[@placeholder = 'From']")
         input_from.send_keys(1)
         input_to = driver.find_element(By.XPATH, "//input[@placeholder = 'To']")
-        input_to.send_keys(2000)
+        input_to.send_keys(2500)
         export_button2 = WebDriverWait(driver,10).until(
             EC.presence_of_element_located((By.XPATH, "//button[.//span[.//div[text()='Export']]]"))
         )
