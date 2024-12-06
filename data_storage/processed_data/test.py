@@ -1,8 +1,6 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import *
-import os
 
-# 1. Create Spark Session
+# สร้าง Spark Session
 spark = SparkSession.builder \
     .appName("CSVtoCassandra") \
     .config("spark.cassandra.connection.host", "127.0.0.1") \
@@ -10,20 +8,13 @@ spark = SparkSession.builder \
     .config("spark.jars.packages", "com.datastax.spark:spark-cassandra-connector_2.12:3.4.0") \
     .getOrCreate()
 
-df = spark.read.csv("/Users/punchpnp/dsde-project/data_storage/raw_data/real_data2.csv", header=True, inferSchema=True)
+# อ่าน CSV เข้า DataFrame
+df = spark.read.csv("/Users/punchpnp/dsde-project/data_storage/raw_data/testData.csv", header=True, inferSchema=True)
 
-# 2. Read CSV files
-def read_csv_files(directory):
-    df = spark.read.option("header", "true").csv(directory)
-    df.head(5)
-    return df
+# แสดงข้อมูลใน DataFrame
+df.show()
 
-raw_data_df = read_csv_files("/Users/punchpnp/dsde-project/data_storage/raw_data/real_data2.csv")
-raw_data_df.show()
-
-raw_data_df.printSchema()
-
-# 3. Save data to Cassandra
+# ยัดข้อมูลลง Cassandra
 def save_to_cassandra(df, keyspace, table):
     try:
         df.show(5)
@@ -36,6 +27,5 @@ def save_to_cassandra(df, keyspace, table):
     except Exception as e:
         print(f"Error saving data to Cassandra: {e}")
 
-save_to_cassandra(raw_data_df, "space", "result_table")
-
-spark.stop()
+# บันทึกข้อมูลลงใน Cassandra
+save_to_cassandra(df, "testspace1", "table1")

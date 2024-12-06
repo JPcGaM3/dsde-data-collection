@@ -1,19 +1,19 @@
-CREATE KEYSPACE IF NOT EXISTS space1 WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+CREATE KEYSPACE IF NOT EXISTS space WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
 
-CREATE TABLE IF NOT EXISTS space1.table1 (
-    Year INT,
-    Title TEXT,
-    PublicationName TEXT,
-    CitedByCount INT,
-    Asia INT,
-    Oceania INT,
-    Europe INT,
-    North_America INT,
-    South_America INT,
-    Africa INT,
+CREATE TABLE IF NOT EXISTS space.result_table (
+    id INT,
+    year INT,
+    title TEXT,
+    publicationname TEXT,
+    citedbycount INT,
+    asia INT,
+    oceania INT,
+    europe INT,
+    north_america INT,
+    south_america INT,
+    africa INT,
     keywords_list TEXT,
-    cluster TEXT,
+    cluster INT,
     keyword_category TEXT,
-    processed_time TIMESTAMP,
-    PRIMARY KEY (Year, Title)
+    PRIMARY KEY (id, year, title)
 );
